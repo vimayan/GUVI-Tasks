@@ -74,7 +74,7 @@ for(let c=1;c<=3;c++){
     
     weatherButton.innerHTML = "click here for weather"
     cardHeader.innerHTML = "country"
-    console.log( cardHeader.innerHTML);
+    
 
     cardBody.append(cityDescription,weatherButton)
     flagContainer.append(countryFlag);
@@ -82,13 +82,20 @@ for(let c=1;c<=3;c++){
     columncontainer.appendChild(cards);
     
 
-    weatherButton.addEventListener("click",function(){
-        let countryName =document.getElementById(`name${c}`).innerText
-infoWeather = document.getElementById(`weather${c}`)
-console.log(countryName)
-let weather = `https://api.openweathermap.org/data/2.5/weather?q=${countryName}&appid=b6479c9249d4d6aacd122a874e4bd785`
-countryWeather('GET',weather,infoWeather);
-    })
+    weatherButton.addEventListener("click",function(){        //adding event listener to get the weather details
+
+
+                                                        let countryName =document.getElementById(`name${c}`).innerText
+                                                        infoWeather = document.getElementById(`weather${c}`)
+
+                                                        console.log(countryName)
+
+                                                        let weather = `https://api.openweathermap.org/data/2.5/weather?q=${countryName}&appid=b6479c9249d4d6aacd122a874e4bd785`
+                                                        
+                                                        countryWeather('GET',weather,infoWeather);
+
+
+                                                     })
 
     let cardSection = document.getElementById("cardsection");
     cardSection.appendChild(columncontainer);
@@ -127,7 +134,7 @@ let k = Math.ceil(Math.random()*100+10).toFixed(0);
 //  console.log(i,j,k);
 
 
-
+let countries;             // defining the global varible for country data
 
 function gettingCountryName(method,url){                    //function to get a random three countries from the rest country 
 
@@ -137,7 +144,7 @@ function gettingCountryName(method,url){                    //function to get a 
                                     data.open(method,url)
                                     data.send()
                                     data.onload = function (){
-                                                        let countries = JSON.parse(data.response)
+                                                     countries = JSON.parse(data.response)
 
                                                         image1.src = countries[i].flags.svg            // getting the country flag 
                                                         image2.src = countries[j].flags.svg
@@ -198,13 +205,7 @@ function userEntry(){                                // function to get user inp
                 let entered = document.getElementById('entries').value
                 let weather = document.getElementById('weather1')
 
-                            var data = new XMLHttpRequest ()            //XMLhttp request  to the weather api
-                            data.open("GET",restcountries)
-                            data.send()
-                            data.onload = function (){
-                            let countries = JSON.parse(data.response)
                             
-
 
 for(let q=0;q<=1;q++){                                               //loop to match the user input country name
 
@@ -237,7 +238,7 @@ for(let q=0;q<=1;q++){                                               //loop to m
 name in camel case`))                                                           //to alert the user to enter the valid data
 
 
-}}}
+}}
 
 
 
@@ -260,12 +261,6 @@ function enteredKey(e){                                 // function to get user 
 
                                 let weather = document.getElementById('weather1')
 
-
-                                var data = new XMLHttpRequest ()
-                                data.open("GET",restcountries)
-                                data.send()
-                                data.onload = function (){
-                                let countries = JSON.parse(data.response)
 
                             
             for(let q=0;q<=1;q++){                                                           //loop to update the 1st card value for the matched user input country name
@@ -298,7 +293,7 @@ Name in camel case`))                                                           
                                     }}
                                 
                                 
-                    }}
+                    }
 
 
 
