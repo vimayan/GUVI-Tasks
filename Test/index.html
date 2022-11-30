@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/bootstrap.css">
+  <script src="./bootstrap.bundle.js"></script>
+  <script src="https://kit.fontawesome.com/ddb65c50b6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-dark p-2  ">
+        <div class="container-fluid align-content-center">
+
+          <div class=" navbar-collapse" >
+                <a class="navbar-brand text-danger fs-1 me-auto p-2" href="https://www.youtube.com"><i class="fa-brands fa-youtube"></i></a>  
+                <button class="btn btn-primary float-end  d-sm-none d-none" id="sign1"> sign in</button>
+                <button class="btn btn-primary float-end  d-sm-none d-none" id="signout1"> sign out</button>
+
+
+                <form class="d-flex  me-auto col-sm-6" role="search">
+
+                    <div class="input-group mt-3 mb-3 ">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm " data-bs-toggle="dropdown" id="selectSearch">
+                    search
+                    </button>
+
+                    <ul class="dropdown-menu ">
+                    <li><a class="dropdown-item"  onclick="videoSearch()">videos</a></li>
+                    <li><a class="dropdown-item"  onclick="playList()">playlists</a></li>
+                    <li><a class="dropdown-item"  onclick="getChannel()">channels</a></li>
+                    </ul>
+
+                    <input type="text" class="form-control " id="search" value="" placeholder="write here ">
+                    </div>
+
+                </form>
+
+
+                <button class="btn btn-primary float-end  d-none"   id="sign2"> sign in</button>
+                <button class="btn btn-primary float-end  d-none " id="signout2"> sign out</button>
+
+          </div>
+
+        </div>
+
+    </nav>
+
+
+  
+    <div class="container-fluid mt-4 mb-5 pb-4 ">
+        <div class="  row mx-0  gap-1 justify-content-center " id="searchresult"></div>
+    </div>
+
+
+
+  
+
+  <script src="./script.js"></script>
+  
+<script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>
+      
+</body>
+
+</html>
+
