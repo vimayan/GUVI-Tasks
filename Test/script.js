@@ -1,5 +1,5 @@
  // Client ID and API key from the Developer Console
- var CLIENT_ID = '824494599805-0v1v3ku2s219ttlaga21sq3s786pa10s.apps.googleusercontent.com';
+ var CLIENT_ID = '967259699602-a038dvo04vl3ol5b9aofdvsgaoc4mum6.apps.googleusercontent.com';
 
  // Array of API discovery doc URLs for APIs used by the quickstart
  var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"];
@@ -148,7 +148,7 @@ function playList() {
                      let playlistSearch = {
                                "part": "snippet"
                                ,
-                               "maxResults": 25,
+                               "maxResults": 8,
                                "q":`${search.value}`,
                                "safeSearch": "moderate",
                                "order": "rating",
@@ -167,54 +167,58 @@ function playList() {
                                if(gapi.auth2.getAuthInstance().isSignedIn.get()){
 
 
-                                                                           return gapi.client.youtube.search.list(playlistSearch).then(function(response) {
+                                               return gapi.client.youtube.search.list(playlistSearch).then(function(response) {
 
-                                                                                                                                             // Handle the results here (response.result has the parsed body).
-                                                                                                                                             console.log(response);
+                                                                                                    // Handle the results here (response.result has the parsed body).
+                                                                                                    console.log(response);
 
-                                                                                                                                             let playlist =response.result.items;
-                                                                                                                                             execute()
-                                                                                                                                             function execute() {
- return gapi.client.youtube.playlistItems.list({
-   "part": [
-     "snippet"
-   ],
-   "maxResults": 25,
-   "playlistId": `${playlist[0].id.playlistId}`
- })
-     .then(function(response) {
-             // Handle the results here (response.result has the parsed body).
-             console.log("Response", response);
-             let playlistid =response.result.items;
-                                        playlistid.forEach(element => {
-                                                                                                                                             let videos=element.snippet.resourceId.videoId
-                                                                                                                                             content.innerHTML +=`   
-                                                                                                                                             <div class = "col-sm-4 col-lg-3">
-
-                                                                                                                                             <iframe width="100%" heigth ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                                                                                                                                             </div>`
-     })
-   },
-           function(err) { console.error("Execute error", err); });
-}
+                                                                                                    let playlist =response.result.items;
+                                                                                                    
 
 
+                                                                                                    playlist.forEach(element => {
+
+                                                                                                   
+                                                                                                    execute();
 
 
+                                                                                                                          
+                                                                                                                          function execute() {
+
+                                                                                                                                    let playlistContent = {       "part": ["snippet"],
+                                                                                                                                                                  "maxResults": 3,
+                                                                                                                                                                  "playlistId": `${element.id.playlistId}`       }  
+                                                                                                                                                  
+                                                                                                                                                  
+                                                                                                                                                                              
 
 
+                                                                                                                                                return gapi.client.youtube.playlistItems.list(playlistContent).then(function(response) {
+                                                                                                                                                                                      
+                                                                                                                                                                  // Handle the results here (response.result has the parsed body).
+                                                                                                                                                                  console.log("Response", response);
 
+                                                                                                                                                                  let playlistid =response.result.items;
 
-                                                                                                                                             // playlist.forEach(element => {
-                                                                                                                                             // let videos=element.id.channelId
-                                                                                                                                             // content.innerHTML +=`   
-                                                                                                                                             // <div class = "col-sm-4 col-lg-3">
+                                                                                                                                                                  playlistid.forEach(element => {
 
-                                                                                                                                             // <iframe width="100%" heigth ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                                                                                                                                             // </div>`   
+                                                                                                                                                                  let videos=element.snippet.resourceId.videoId
+
+                                                                                                                                                                  content.innerHTML +=`   
+                                                                                                                                                                  <div class = "col-sm-4 col-lg-3">
+
+                                                                                                                                                                  <iframe width="100%" heigth ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+                                                                                                                                                                  </div>`
+                                                                                                                                                                  })
+                                                                                                                                                                                    },function(err) { console.error("Execute error", err); });
+            
+ } 
+
+                                                                                                                                              });
+                                                                                                                                            
                                                                                                                                             })
 
-                                                                                                                                           //   }, function(err) { console.error("Execute error", err); });
+                                                                                                                            
                                                                                  }
                                  else(alert('please sign in'))
 
