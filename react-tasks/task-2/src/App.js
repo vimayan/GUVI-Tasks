@@ -2,7 +2,7 @@ import Card from './component/Card';
 import './App.css';
 import Banner from './component/BannerJumbotran';
 import Navbarnew from "./component/Navbar";
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import Footer from './component/footer';
 import { data } from './component/imgdata';
 
@@ -11,7 +11,7 @@ import { data } from './component/imgdata';
 
 function App() {
   const[cartValue,setCartValue]=useState(0);
-  const[cardItems,setCardItems]=useState()
+  const[cardItems,setCardItems]=useState([])
 
   useEffect(() => {
     setCardItems(data)
