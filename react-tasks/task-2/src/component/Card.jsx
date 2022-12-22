@@ -5,7 +5,7 @@ import React from 'react';
 function Card(props) {
   
     return ( <div className="card col-md-3 col-5 m-2 shadow-lg d-inline-block">
-    <img className="card-img-top" src={imgdata[props.items.id]} alt="Card image"/>
+    <img className="card-img-top" src={imgdata[props.items.id]} alt="banner none"/>
     <div className='card-img-overlay h-25 text-end '>
       <span className="badge bg-primary">{props.items.available}</span></div>
     <div className="card-body">

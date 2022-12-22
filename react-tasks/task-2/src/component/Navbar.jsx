@@ -22,14 +22,14 @@ function Navbarnew(props) {
             <a className="nav-link" href="#none">About</a>
           </li>
           <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a className="nav-link dropdown-toggle" href="#none" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            Shop
           </a>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a className="dropdown-item" href="#">All Products</a></li>
-            <li><a className="dropdown-item" href="#">Product Items</a></li>
+            <li><a className="dropdown-item" href="#none">All Products</a></li>
+            <li><a className="dropdown-item" href="#none">Product Items</a></li>
             <li><hr className="dropdown-divider"/></li>
-            <li><a className="dropdown-item" href="#">New Arrivals</a></li>
+            <li><a className="dropdown-item" href="#none">New Arrivals</a></li>
           </ul>
         </li>
               
