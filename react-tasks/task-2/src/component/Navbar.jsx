@@ -14,7 +14,7 @@ function Navbarnew(props) {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="mynavbar">
-        <ul className="navbar-nav me-auto text-start">
+        <ul className="navbar-nav  text-start">
           <li className="nav-item">
             <a className="nav-link" href="#none">Home</a>
           </li>
@@ -34,7 +34,7 @@ function Navbarnew(props) {
         </li>
               
         </ul>
-        <form className="d-flex mt-1">
+        <form className="d-flex mt-1 ms-auto">
           <button className="btn btn-outline-dark" type="button"><i className="fa-sharp fa-solid fa-cart-arrow-down pe-1"></i>Cart
           <span className="badge bg-primary ms-1 rounded-circle">{props.cartValue}</span></button>
         </form>
