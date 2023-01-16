@@ -16,7 +16,7 @@ function VegShopAbout() {
                The point of using Lorem Ipsum is that it has a more-or-less 
                normal distribution of letters, as opposed to using 'Content here, 
                content here', making it look like readable English. Many</p>
-          <a href="#" className='badge rounded-pill bg-warning fs-5 text-decoration-none mt-3'>Read more</a>
+          <a href="#void" className='badge rounded-pill bg-warning fs-5 text-decoration-none mt-3'>Read more</a>
       </div>
       <div className="col  ">
           <img className='float-end img-fluid ' src={Banner} alt="#" />

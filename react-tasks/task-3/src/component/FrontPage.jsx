@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import VegShopmenu from './NavbarHeader';
 import VegHome from './Home';
 import VegShopAbout from './About';

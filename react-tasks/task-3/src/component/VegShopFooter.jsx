@@ -9,7 +9,7 @@ function ShopFooter() {
         <div className="container-fluid mt-5  px-5 text-white" style={{background:"#3b3b3b"}}>
             <div className="row mx-5 py-4 px-5 ">
                             <div className="col-md-12 mb-4">
-                            <a href="#" > <img src={Logo} alt="#"/></a>
+                            <a href="#void" > <img src={Logo} alt="#"/></a>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
                                     <div className="row">
@@ -31,10 +31,10 @@ function ShopFooter() {
                                                 
                                                 <h2>Social Link</h2>
                                                 <ul className="list-unstyled fs-5">
-                                                    <li > <a className='text-decoration-none text-white' href="#"><i className="fa-brands fa-twitter me-2"></i>Twitter</a> </li>
-                                                    <li><a   className='text-decoration-none text-white' href="#"> <i className="fa-brands fa-facebook me-2"></i>Facebook</a> </li>
-                                                    <li><a  className='text-decoration-none text-white'  href="#"><i className="fa-brands fa-instagram me-2"></i>Instagram</a> </li>
-                                                    <li><a  className='text-decoration-none text-white' href="#"><i className="fa-brands fa-linkedin me-2"></i>Linkdin</a> </li>
+                                                    <li > <a className='text-decoration-none text-white' href="#void"><i className="fa-brands fa-twitter me-2"></i>Twitter</a> </li>
+                                                    <li><a   className='text-decoration-none text-white' href="#void"> #void<i className="fa-brands fa-facebook me-2"></i>Facebook</a> </li>
+                                                    <li><a  className='text-decoration-none text-white'  href="#void"><i className="fa-brands fa-instagram me-2"></i>Instagram</a> </li>
+                                                    <li><a  className='text-decoration-none text-white' href="#void"><i className="fa-brands fa-linkedin me-2"></i>Linkdin</a> </li>
                                                 </ul>
                                             
                                             </div>
