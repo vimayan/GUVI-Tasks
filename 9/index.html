@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Dictionary</title>
+    <link rel="stylesheet" href="./bootstrap.css" />
+</head>
+
+<body>
+    <div class="container my-5">
+      <h1>Anime Search Form</h1>
+      <form id="searchForm">
+        <div class="form-group">
+          <label for="animeName">Search by name:</label>
+          <input type="text" class="form-control" id="animeName" name="animeName">
+        </div>
+        <div class="form-group">
+          <label for="animeGenres">Search by genres (comma-separated list):</label>
+          <input type="text" class="form-control" id="animeGenres" name="animeGenres">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+      <div id="animeResults" class="mt-5"></div>
+    </div>
+  </body>
+  <script src="./script.js"></script>
+</html>

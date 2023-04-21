@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap.css" />
+  </head>
+
+  <body>
+    <nav class="navbar bg-dark p-2">
+      <div class="container-sm col-md-6 my-2 d-flex flex-column gap-1">
+        <input
+          type="text"
+          class="form-control"
+          id="search"
+          value=""
+          placeholder="ex author or author/tittle "
+        />
+        <div class="btn-group align-self-center">
+          <button
+            class="btn btn-primary px-sm-5"
+            id="Author"
+            onclick="inputField('author')"
+          >
+            Author
+          </button>
+          <button
+            class="btn btn-info px-sm-5"
+            id="Tittle"
+            onclick="inputField('title')"
+          >
+            Title
+          </button>
+          <button
+            class="btn btn-success px-sm-5"
+            id="Lines"
+            onclick="inputField('lines')"
+          >
+            Lines
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4 col-sm-3 col-md-2 bg-dark d-flex flex-column">
+          <span class="fs-5 text-white badge badge-success">Author List</span>
+          <div id="author"></div>
+        </div>
+        <div class="col d-flex flex-column">
+          <nav
+            aria-ontainer-fluidlabel="Page navigation example"
+            class="m-2"
+          >
+            <ul class="pagination">
+              <li class="page-item" id="previous">
+                <a class="page-link" href="#">Previous</a>
+              </li>
+              <li class="page-item" id="next">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="alert alert-danger d-none" role="alert" id="alert"></div>
+          <div id="resultContent"></div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./script.js"></script>
+</html>
