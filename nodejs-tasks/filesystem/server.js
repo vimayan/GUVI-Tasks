@@ -38,7 +38,7 @@ const dateTimeFormat = 'YYYY-MM-DD_HH-mm-ss';
         {
            
             if(err) {throw err};
-            res.status(200).send(`${fileName}-file created`)
+            res.status(200).send(`${fileName}   ---new file created`)
         })
     })}
     catch (err){res.status(500).send(err)}
@@ -48,7 +48,7 @@ const dateTimeFormat = 'YYYY-MM-DD_HH-mm-ss';
 app.get("/readfile/:name",(req,res)=>{
 
     const foldername = req.params.name;
-    const fileName = req.query.fileName;
+    const fileName = req.query.filename;
    
     
     
