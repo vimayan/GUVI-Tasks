@@ -75,10 +75,15 @@ router.post("/:username/bookrooms/:hall_id", async (req, res) => {
   const end_time =new Date(req.body.end_time).toUTCString();
   if(new Date(start_time)>new Date(end_time)) return res.send("start time must be before end time");
   else if(new Date(start_time)<new Date()) return res.send("start time must be after current time");
-  try {
-    const user = await customer_ids.find((userid) => userid.customer_name === customer_name);
 
-    const hall = await hall_ids.find((hallid) => hallid.hall_id ==hall_id);
+
+  const user = await customer_ids.find((userid) => userid.customer_name === customer_name);
+
+  const hall = await hall_ids.find((hallid) => hallid.hall_id == hall_id);
+ 
+ 
+  try {
+
 
     if (!user) return res.status(400).send("user not exist");
     if (!hall) return res.status(400).send("hall not exist");
