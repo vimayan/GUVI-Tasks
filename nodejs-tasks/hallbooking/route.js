@@ -81,6 +81,9 @@ router.post("/:username/bookrooms/:hall_id", async (req, res) => {
 
   const hall = await hall_ids.find((hallid) => hallid.hall_id == hall_id);
 
+  
+  console.log(hall_id);
+  
   console.log(hall);
  
  
