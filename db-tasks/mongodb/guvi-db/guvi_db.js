@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema({
     codekata_score:Number,
     mentorid:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'mentorSchema',
+        ref: 'mentors',
         required:true,
         unique:true
     },
@@ -44,7 +44,7 @@ const codekataSchema = mongoose.Schema({
     },
     userid:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userSchema',
+        ref: 'users',
         required:true,
         unique:true
     }
@@ -57,13 +57,13 @@ const attendanceSchema = mongoose.Schema({
     },
     presents:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userSchema',
+        ref: 'users',
         required:true,
         unique:true
     }],
     absents:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userSchema',
+        ref: 'users',
         required:true,
         unique:true
     }]
