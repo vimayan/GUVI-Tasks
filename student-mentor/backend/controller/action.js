@@ -77,7 +77,11 @@ exports.createStudents = async (req, res) => {
 exports.addStudentForMentor = async (req, res) => {
   const mentor_id = req.params.mentor_id;
   const student_list = req.body.student;
+  
+  const check_mentor = await MentorSchema.findById(mentor_id);
   try {
+    if ( !check_mentor)
+      return res.status(400).end("please check mentor id");
     await StudentSchema.updateMany(
       { _id: { $in: student_list } },
       {
@@ -91,8 +95,10 @@ exports.addStudentForMentor = async (req, res) => {
       { returnDocument: "after" }
     )
       .then(() => {
-        const student = StudentSchema.find({ mentor: mentor_id });
-        res.status(200).send(student);
+         StudentSchema.find({ mentor: mentor_id }).then((student)=>{
+        return res.status(200).send(student);
+        })
+        
       })
       .catch((err) => {
         res.status(500).send(new Error(err).message);
