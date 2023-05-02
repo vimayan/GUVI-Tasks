@@ -15,22 +15,22 @@ exports.listStudentsForMentor = async (req, res) => {
 
     if (selected_students.length === 0) {
       console.log(`No students found for mentor with ID ${mentor_id}`);
-      return res.status(404).send('No students found');
+      return res.status(404).send("No students found");
     }
     return res.status(200).send(selected_students);
   } catch (err) {
     res.status(500).send(new Error(err).message);
   }
-
 };
-exports.listMentorsForStudents =async (req, res) => {
+exports.listMentorsForStudents = async (req, res) => {
   const student_id = req.params.student_id;
   console.log(`student_id: ${student_id}`);
 
   try {
-       const selected_students = await StudentSchema.findById(student_id);
+    const selected_students = await StudentSchema.findById(student_id);
     console.log(`selected_students: ${selected_students}`);
-    if(!selected_students) return res.status(200).end("check the the student id");
+    if (!selected_students)
+      return res.status(200).end("check the the student id");
     return res.status(200).json(selected_students.mentorlist);
   } catch (err) {
     console.error(`Error in listStudentsForMentor: ${err}`);
@@ -44,14 +44,17 @@ exports.createMentors = async (req, res) => {
     email: req.body.email,
   };
 
-  const check_mentor_mail = await MentorSchema.findOne({
-    email: new_mentor.email,
-  });
+
   try {
+    const check_mentor_mail = await MentorSchema.findOne({
+      email: new_mentor.email,
+    });
     if (check_mentor_mail) return res.status(400).end("email already exist");
     const mentor = await new MentorSchema(new_mentor);
     mentor.save();
-    return res.status(200).json(mentor);
+    await MentorSchema.find().then((data) => {
+      return res.status(200).json(data);
+    });
   } catch (err) {
     res.status(500).send(err);
   }
@@ -62,14 +65,17 @@ exports.createStudents = async (req, res) => {
     email: req.body.email,
   };
 
-  const check_student_mail = await StudentSchema.findOne({
-    email: new_student.email,
-  });
+
   try {
+    const check_student_mail = await StudentSchema.findOne({
+      email: new_student.email,
+    });
     if (check_student_mail) return res.status(400).end("email already exist");
     const student = await new StudentSchema(new_student);
     student.save();
-    return res.status(200).json(student);
+    await StudentSchema.find().then((data) => {
+      return res.status(200).json(data);
+    });
   } catch (err) {
     res.status(500).send(new Error(err).message);
   }
@@ -77,11 +83,10 @@ exports.createStudents = async (req, res) => {
 exports.addStudentForMentor = async (req, res) => {
   const mentor_id = req.params.mentor_id;
   const student_list = req.body.student;
-  
+
   const check_mentor = await MentorSchema.findById(mentor_id);
   try {
-    if ( !check_mentor)
-      return res.status(400).end("please check mentor id");
+    if (!check_mentor) return res.status(400).end("please check mentor id");
     await StudentSchema.updateMany(
       { _id: { $in: student_list } },
       {
@@ -95,10 +100,9 @@ exports.addStudentForMentor = async (req, res) => {
       { returnDocument: "after" }
     )
       .then(() => {
-         StudentSchema.find({ mentor: mentor_id }).then((student)=>{
-        return res.status(200).send(student);
-        })
-        
+        StudentSchema.find({ mentor: mentor_id }).then((student) => {
+          return res.status(200).send(student);
+        });
       })
       .catch((err) => {
         res.status(500).send(new Error(err).message);
