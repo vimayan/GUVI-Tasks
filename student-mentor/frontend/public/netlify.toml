@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "/react-tasks/task-5"
+  base = "/react-tasks/task-5"
+
+  [[redirects]]
+
+  from = "/*"
+  to = "/indext.html"
+  status = 200
