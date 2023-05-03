@@ -17,11 +17,11 @@ export default function Lists({name_list,path}) {
 // console.log(name_list);
   const navigate = useNavigate();
   const onSelect=(list)=>{
-    if(path=="/student"){ selected_student(list);
+    if(path==="/student"){ selected_student(list);
       mentor_list_for_selected_student(list)
       
     }
-    if(path=="/mentor") {selected_mentor(list)
+    if(path==="/mentor") {selected_mentor(list)
       student_list_for_selected_mentor(list._id)}
     navigate(`${path}/${list.name}`)
   }

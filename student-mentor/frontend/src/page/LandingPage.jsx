@@ -5,10 +5,9 @@ import "./page.css"
 
 function LandingPage(){
     const peopleContext = useContext(PeopleContext)
-    const {list_people,list_student} =peopleContext
+    const {list_people} =peopleContext
 useEffect(()=>{
     list_people();
-    // console.log(list_student);
 },[])
 
     return ( <div className='container-fluid' id='landing_page'>

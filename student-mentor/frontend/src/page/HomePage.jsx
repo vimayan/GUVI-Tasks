@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import SideNav from "./SideNav";
 import Lists from "../component/list";
 import PeopleContext from "../context/context";
