@@ -38,7 +38,7 @@ export default function AddUser() {
     }),
     onSubmit: (userdata) => {
       axios
-        .post("http://localhost:5500/create-user", userdata)
+        .post("https://nodemailer-8ey0.onrender.com/create-user", userdata)
         .then((response) => {
           setType("success");
           setRegister(true);

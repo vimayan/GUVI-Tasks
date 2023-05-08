@@ -51,8 +51,7 @@ navigate('/login')
     }),
     onSubmit: (userdata) => {
       axios
-        // .post("https://fitness-logger.onrender.com/request-password", userdata)
-        .post("http://localhost:5500/request-password", userdata)
+        .post("https://nodemailer-8ey0.onrender.com/request-password", userdata)
         .then((response)=>{
           console.log(response);
           setType("success");
