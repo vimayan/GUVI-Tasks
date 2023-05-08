@@ -102,7 +102,7 @@ exports.requestPassword = async (req, res) => {
 
     let token = await TokenSchema.findOne({ userid: user._id });
     if (!token) {
-      token = new TokenSchema({
+      token =await new TokenSchema({
         userid: user._id,
         token: crypto.randomBytes(32).toString("hex"),
       }).save();
