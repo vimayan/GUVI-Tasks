@@ -1,0 +1,21 @@
+#Landing{
+    background-image: url(https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg?auto=compress&cs=tinysrgb&w=1800);
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-attachment: fixed;
+    background-size:cover;
+    height: 100vh;
+}
+
+#Home{
+    background-image: url(https://images.pexels.com/photos/1037993/pexels-photo-1037993.jpeg?auto=compress&cs=tinysrgb&w=1800);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size:cover;
+    height: 100vh;
+    
+}
+#navbarScroll ul{
+    background-color: blueviolet;
+}
