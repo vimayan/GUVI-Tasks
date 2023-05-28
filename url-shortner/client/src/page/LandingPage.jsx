@@ -31,9 +31,17 @@ function LandingPage() {
             <li> Full Link History</li>
             <li> Customized TinyURLs</li>
           </ol>
-          <Link to="/login" className="btn btn-success">
-            Enter
-          </Link>
+          <div className="d-flex gap-3">
+            <ul className="list-group ">
+              <li className="list-group-item bg-transparent">
+                newuser@user.com
+              </li>
+              <li className="list-group-item bg-transparent">newuser123</li>
+            </ul>
+            <Link to="/login" className="btn btn-success align-self-end">
+              Enter
+            </Link>
+          </div>
         </div>
         <div className="col-4 my-5">
           <h3>
