@@ -14,10 +14,15 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { Alert, ButtonGroup, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import UrlContext from "../context/UrlContext";
+import ThreeDotLoading from "../component/Loading";
 
 const theme = createTheme();
 
 export default function ForgetPassword() {
+  const urlContext = useContext(UrlContext);
+  const { loading, setLoading } = urlContext;
+
   const navigate = useNavigate();
   const login = () => {
     navigate("/login");
@@ -43,16 +48,18 @@ export default function ForgetPassword() {
       email: yup.string().required("Email is required").email(),
     }),
     onSubmit: (userdata) => {
+      setLoading("SET_LOADING");
       axios
-        .post("https://tinyshortner.onrender.com/request-password", userdata)
+        .post("http://localhost:4500/request-password", userdata)
         .then((response) => {
-          console.log(response);
+          setLoading("LOADED");
           setType("success");
           setData(response.data);
           setRequestPssword(true);
           return;
         })
         .catch((error) => {
+          setLoading("LOADED");
           if (error.response.data.details) {
             setType("warning");
             setData(error.response.data.details[0].message);
@@ -175,6 +182,9 @@ export default function ForgetPassword() {
           {data}
         </Alert>
       </Snackbar>
+      <div className={loading ? "d-block" : "d-none"}>
+        <ThreeDotLoading />
+      </div>
     </>
   );
 }
