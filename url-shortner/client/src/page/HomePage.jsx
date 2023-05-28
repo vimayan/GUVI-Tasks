@@ -63,7 +63,7 @@ function HomePage() {
                     <input
                       className="form-control py-2 text-"
                       type="text"
-                      placeholder="localhost:4500/"
+                      placeholder="https://tinyshortner.onrender.com"
                       disabled
                     />
 

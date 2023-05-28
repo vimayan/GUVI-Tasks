@@ -44,7 +44,7 @@ export default function ForgetPassword() {
     }),
     onSubmit: (userdata) => {
       axios
-        .post("http://localhost:4500/request-password", userdata)
+        .post("https://tinyshortner.onrender.com/request-password", userdata)
         .then((response) => {
           console.log(response);
           setType("success");

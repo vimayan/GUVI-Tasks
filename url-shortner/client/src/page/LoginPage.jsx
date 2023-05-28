@@ -70,7 +70,7 @@ export default function Login() {
     onSubmit: (userdata) => {
       setLoading("SET_LOADING");
       axios
-        .post("http://localhost:4500/login", userdata)
+        .post("https://tinyshortner.onrender.com/login", userdata)
         .then((response) => {
           setLoading("LOADED");
           setType("success");

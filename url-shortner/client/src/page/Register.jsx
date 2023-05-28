@@ -44,7 +44,7 @@ export default function Register() {
     onSubmit: (userdata) => {
       setLoading("SET_LOADING");
       axios
-        .post("http://localhost:4500/create-user", userdata)
+        .post("https://tinyshortner.onrender.com/create-user", userdata)
         .then((response) => {
           setLoading("LOADED");
           setType("success");

@@ -8,7 +8,7 @@ function LandingPage() {
   const urlContext = useContext(UrlContext);
   const { getViewCount, viewCount, setViewCount } = urlContext;
 
-  const url = "http://localhost:4500";
+  const url = "https://tinyshortner.onrender.com";
   useEffect(() => {
     getViewCount();
   }, []);

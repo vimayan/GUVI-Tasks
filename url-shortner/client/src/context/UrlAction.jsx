@@ -4,8 +4,6 @@ import UrlReducer from "./UrlReducer";
 import UrlContext from "./UrlContext";
 
 function UrlAction(props) {
-  const token = localStorage.getItem("token");
-  // const username = localStorage.getItem("username");
 
   const UrlInitialState = {
     urls: [],
@@ -66,7 +64,7 @@ function UrlAction(props) {
           token: token,
         },
       };
-      const res = await axios.get(`http://localhost:4500/get_url`, config);
+      const res = await axios.get(`https://tinyshortner.onrender.com/get_url`, config);
       dispatch({
         type: "GET_URLS",
         payload: [...res.data],
@@ -90,7 +88,7 @@ function UrlAction(props) {
         },
       };
       const res = await axios.post(
-        `http://localhost:4500/shorten_url`,
+        `https://tinyshortner.onrender.com/shorten_url`,
         url,
         config
       );
@@ -119,7 +117,7 @@ function UrlAction(props) {
         },
       };
       const res = await axios.put(
-        `http://localhost:4500/edit_shortner`,
+        `https://tinyshortner.onrender.com/edit_shortner`,
         selectedUrl,
         config
       );
@@ -149,7 +147,7 @@ function UrlAction(props) {
         },
       };
       const res = await axios.delete(
-        `http://localhost:4500/delete_shortner/${id}`,
+        `https://tinyshortner.onrender.com/delete_shortner/${id}`,
         config
       );
 
@@ -171,7 +169,7 @@ function UrlAction(props) {
   const getViewCount = async () => {
     try {
       setLoading("SET_LOADING");
-      const res = await axios.get(`http://localhost:4500/get_viewcount`);
+      const res = await axios.get(`https://tinyshortner.onrender.com/get_viewcount`);
       dispatch({
         type: "GET_VIEWCOUNT",
         payload: res.data,

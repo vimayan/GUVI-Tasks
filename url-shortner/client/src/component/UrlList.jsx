@@ -8,7 +8,7 @@ let socket;
 function UrlList({ urlformdata }) {
   const navigate = useNavigate();
 
-  const url = "http://localhost:4500";
+  const url = "https://tinyshortner.onrender.com";
 
   const urlContext = useContext(UrlContext);
   const { urls, getUrls, updateUrls, deleteUrls, SetSelectedUrl, setEdit } =
@@ -50,7 +50,7 @@ function UrlList({ urlformdata }) {
           >
             <span className="d-flex gap-1">
               <span className="d-flex flex-column">
-                {`http://localhost:4500/${url.tinyUrl}`}
+                {`https://tinyshortner.onrender.com/${url.tinyUrl}`}
                 <span>{url.longUrl} </span>
               </span>
 
