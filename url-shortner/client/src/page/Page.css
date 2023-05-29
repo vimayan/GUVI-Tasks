@@ -13,7 +13,7 @@
     background-position: center;
     background-attachment: fixed;
     background-size:cover;
-    height: 100vh;
+    min-height: 100vh;
     
 }
 #navbarScroll ul{
