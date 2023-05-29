@@ -44,41 +44,42 @@ function UrlList({ urlformdata }) {
     <>
       <ul className="list-group">
         {urls.map((url) => (
-          <li
-            key={url._id}
-            className="list-group-item d-flex justify-content-between align-items-center"
-          >
-            <span className="d-flex gap-1">
-              <span className="d-flex flex-column">
-                {`https://tinyshortner.onrender.com/${url.tinyUrl}`}
-                <span>{url.longUrl} </span>
-              </span>
-
-              <span className="badge bg-primary rounded-pill align-self-start d-flex">
-                <span className="align-self-center"> Cicks-</span>{" "}
-                <span className="fs-6"> {url.clickCount}</span>
-              </span>
-            </span>
-
-            <div
-              className="btn-group"
-              role="group"
-              aria-label="Basic mixed styles example"
-            >
-              <button
-                onClick={() => handleEdit(url)}
-                type="button"
-                className="btn btn-sm btn-warning"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => deleteUrl(url._id)}
-                type="button"
-                className="btn btn-sm btn-danger"
-              >
-                Delete
-              </button>
+          <li key={url._id} className="list-group-item">
+            <div className="row align-items-center">
+              <div className="col">
+                <div className="d-flex flex-column overflow-hidden ">
+                  <div>
+                    {`https://tinyshortner.onrender.com/${url.tinyUrl}`}{" "}
+                  </div>
+                  <div>{url.longUrl} </div>
+                </div>
+              </div>
+              <div className="col d-flex flex-column gap-1">
+                <div className="ms-lg-auto badge bg-primary d-flex justify-content-center">
+                  <span className="align-self-center "> Cicks-</span>{" "}
+                  <span className="fs-6 "> {url.clickCount}</span>
+                </div>
+                <div
+                  className=" ms-lg-auto btn-group"
+                  role="group"
+                  aria-label="Basic mixed styles example"
+                >
+                  <button
+                    onClick={() => handleEdit(url)}
+                    type="button"
+                    className="btn btn-sm btn-warning"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => deleteUrl(url._id)}
+                    type="button"
+                    className="btn btn-sm btn-danger"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
           </li>
         ))}
