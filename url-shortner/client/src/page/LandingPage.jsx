@@ -20,8 +20,8 @@ function LandingPage() {
   }, []);
   return (
     <div className="container-fluid" id="Landing">
-      <div className="row align-items-center">
-        <div className="col-6 col-md-4  mx-auto my-5">
+      <div className="row align-items-center justify-content-end">
+        <div className="col-9 col-sm-6  mx-auto my-4">
           <p className="fs-5 fw-bold my-0">welcome to</p>
           <p className="fs-1 fw-bolder">TINYURL</p>
           <span className="fs-5 fw-bold">create free account to enjoy</span>
@@ -31,7 +31,8 @@ function LandingPage() {
             <li> Full Link History</li>
             <li> Customized TinyURLs</li>
           </ol>
-          <div className="d-flex gap-3">
+
+          <div className="d-flex gap-1">
             <ul className="list-group ">
               <li className="list-group-item bg-transparent">
                 newuser@user.com
@@ -43,10 +44,10 @@ function LandingPage() {
             </Link>
           </div>
         </div>
-        <div className="col-4 my-5">
+        <div className="col-9 col-sm-5 my-sm-5">
           <h3>
             View Count{" "}
-            <span className="fs-2 badge bg-success">{viewCount}</span>
+            <span className="ms-1 fs-2 badge bg-success">{viewCount}</span>
           </h3>
         </div>
       </div>
