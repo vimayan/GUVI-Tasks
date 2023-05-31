@@ -1,0 +1,12 @@
+The Hypertext Transfer Protocol (HTTP) has evolved over the years to meet the increasing demands of the web. Here's an overview of the major versions and their key features:
+
+1. **HTTP/0.9**: This was the first version of HTTP introduced in 1991. It was a simple protocol that supported only the GET method and did not include headers or support for other types of content.
+
+2. **HTTP/1.0**: Released in 1996, HTTP/1.0 introduced several important features. It added support for different types of content (such as images and files) and allowed for the use of headers in both requests and responses. It also supported multiple methods (GET, POST, HEAD, etc.) and status codes.
+
+3. **HTTP/1.1**: Introduced in 1997, HTTP/1.1 made significant improvements over its predecessor. It introduced persistent connections, allowing multiple requests and responses to be sent over a single connection, reducing the overhead of establishing new connections for each request. It also added support for chunked transfer encoding, allowing for more efficient transmission of large files. Additionally, HTTP/1.1 introduced various caching mechanisms, allowing clients and intermediaries to cache responses and improve performance.
+
+4. **HTTP/2**: Released in 2015, HTTP/2 aimed to address the limitations of HTTP/1.1 and improve performance. It introduced several key features, including request and response multiplexing, header compression, server push, and stream prioritization. These features help reduce latency, optimize resource usage, and improve the overall efficiency of the protocol.
+
+5. **HTTP/3**: HTTP/3 is the latest version, released in 2020. It is based on the QUIC (Quick UDP Internet Connections) protocol, which is designed to improve performance over unreliable networks. HTTP/3 further enhances performance by reducing latency and improving congestion control. It achieves this by using UDP instead of TCP as the underlying transport protocol and implementing its own reliable data delivery mechanism.
+

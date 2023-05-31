@@ -1,0 +1,14 @@
+HTTP/1.1 and HTTP/2 are different versions of the Hypertext Transfer Protocol (HTTP), which is the protocol used for transmitting data over the internet. Here are the main differences between HTTP/1.1 and HTTP/2:
+
+1. **Request and Response Multiplexing**: In HTTP/1.1, each request and response requires a separate connection, which can lead to inefficiencies, especially when multiple requests are made to the same server. HTTP/2 introduces request and response multiplexing, allowing multiple requests and responses to be sent over a single connection. This multiplexing improves performance by reducing latency and eliminating the need for multiple connections.
+
+2. **Binary Protocol**: While HTTP/1.1 uses a plain text format, HTTP/2 uses a binary protocol for data transmission. The binary format allows for more efficient parsing and reduces the overhead of textual representation. This helps to improve performance by reducing the size of the data being transmitted.
+
+3. **Header Compression**: HTTP/2 introduces header compression, which reduces the size of the headers sent between the client and the server. This compression technique, known as HPACK, reduces the amount of data transmitted, resulting in faster performance, especially for bandwidth-constrained connections.
+
+4. **Server Push**: HTTP/2 includes a server push feature, which allows the server to proactively send resources to the client before they are explicitly requested. This can improve performance by reducing the number of round trips required to fetch all the necessary resources.
+
+5. **Stream Prioritization**: HTTP/2 introduces the concept of stream prioritization, allowing the client to assign priority levels to different resources. This feature enables more efficient resource allocation and ensures that critical resources are loaded faster.
+
+6. **Backward Compatibility**: HTTP/2 is designed to be fully backward compatible with HTTP/1.1. This means that servers that support HTTP/2 can still serve requests from clients using HTTP/1.1, providing a smooth transition without requiring immediate upgrades from all clients and servers.
+
