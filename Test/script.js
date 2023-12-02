@@ -113,11 +113,13 @@ function initClient() {
 
       if (isSignedIn) {
         modal.classList.remove("show");
+        fillHome();
         getPlaylist();
         getSubscription();
         getChannel();
       }
-    }).catch((err)=> console.log(err));
+    })
+    .catch((err) => console.log(err));
 }
 
 const search = (name, video_container) => {
@@ -136,6 +138,53 @@ const search = (name, video_container) => {
     video_search(subscription_video_container);
     play_list_search(subscription_video_container);
   }
+};
+
+const fillHome = () => {
+  gapi.client.youtube.videos
+    .list({
+      part: ["snippet,contentDetails"],
+      chart: "mostPopular",
+      maxResults: 50,
+      regionCode: "US",
+    })
+    .then(
+      function (response) {
+        response.map((element) => {
+          const video = response.id;
+          if (home_video_container) {
+            home_video_container.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
+    <div class="col-xs col-sm-6 col-md-6 col-lg-4">
+    <div class="card bg-black">
+    <div class="card-img-top col rounded-2">
+    <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+    </div>
+      <div class="card-body  text-light">
+        <div class="d-flex align-items-top justify-content-around">
+          <div class="d-flex flex-column align-items-start">
+            <b class="card-text overflow-hidden">
+              ${element.snippet.title}</b>
+            <div class="d-flex flex-column">
+              <span>${element.snippet.channelTitle}</span>
+              <span>views</span>
+            </div>
+          </div>
+          <div>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+          }
+        });
+      },
+      function (err) {
+        console.error("Execute error", err);
+      }
+    );
 };
 
 const getHistory = () => {
@@ -333,12 +382,14 @@ const get_latest_video__on_subscription = (subscriptions) => {
 
     latestVideoRequest.execute(function (latestVideoResponse) {
       const latestVideo = latestVideoResponse.result.items[0].snippet;
-      console.log(latestVideo);
+      const video = latestVideoResponse.result.items[0].id.videoId;
       if (subscription_video_container)
         subscription_video_container.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
          <div class="col-xs col-sm-6 col-md-6 col-lg-4">
          <div class="card bg-black">
-           <img src="${latestVideo.thumbnails.high.url}" class="card-img-top col rounded-2" alt="...">
+         <div class="card-img-top col rounded-2">
+         <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+        </div>
            <div class="card-body  text-light">
              <div class="d-flex align-items-top justify-content-around">
                <img src="${subscription.snippet.thumbnails.default.url}" class="mb-auto rounded-circle" width="40px" alt="...">
@@ -507,12 +558,32 @@ function video_search(search, content) {
 
         video.forEach((element) => {
           let videos = element.id.videoId;
-          content.innerHTML += `   
-                                <div class = "col-sm-4 col-md-3 col-lg-2">
-
-                                <iframe width="100%" heigth ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                              
-                                </div> `;
+          content.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
+                                <div class="col-xs col-sm-6 col-md-6 col-lg-4">
+                                <div class="card bg-black">
+                                <div class="card-img-top col rounded-2">
+                                <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+                                </div>
+                                  <div class="card-body  text-light">
+                                    <div class="d-flex align-items-top justify-content-around">
+                                      <div class="d-flex flex-column align-items-start">
+                                        <b class="card-text overflow-hidden">
+                                          ${element.snippet.title}</b>
+                                        <div class="d-flex flex-column">
+                                          <span>${element.snippet.channelTitle}</span>
+                                          <span>views</span>
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                      </div>
+                                    </div>
+                                    <div>
+                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>`;
         });
       },
       function (err) {
@@ -559,13 +630,33 @@ function play_list_search(search, content) {
                 let playlistid = response.result.items;
 
                 playlistid.forEach((element) => {
-                  let videos = element.snippet.resourceId.videoId;
+                  let video = element.snippet.resourceId.videoId;
 
-                  content.innerHTML += `   
-                                        <div class = "col-sm-4 col-lg-3">
-
-                                        <iframe width="100%" heigth ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                                        </div>`;
+                  content.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
+                                        <div class="col-xs col-sm-6 col-md-6 col-lg-4">
+                                        <div class="card bg-black">
+                                        <div class="card-img-top col rounded-2">
+                                        <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+                                        </div>
+                                          <div class="card-body  text-light">
+                                            <div class="d-flex align-items-top justify-content-around">
+                                              <div class="d-flex flex-column align-items-start">
+                                                <b class="card-text overflow-hidden">
+                                                  ${element.snippet.title}</b>
+                                                <div class="d-flex flex-column">
+                                                  <span>${element.snippet.channelTitle}</span>
+                                                  <span>views</span>
+                                                </div>
+                                              </div>
+                                              <div>
+                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                              </div>
+                                            </div>
+                                            <div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>`;
                 });
               },
               function (err) {
@@ -609,7 +700,7 @@ function channel_search(search, content) {
                                 </a>
                                 </ul>
                               </div> `;
-      } else alert("pls enter valid channel");
+      }
     });
   } else alert("please sign in");
 }
