@@ -69,7 +69,6 @@ function handleClientLoad() {
 function handleAuthClick() {
   const authInstance = gapi.auth2.getAuthInstance();
   const isSignedIn = authInstance.isSignedIn.get();
-console.log(isSignedIn);
   if (isSignedIn) {
     // If already signed in, show the modal
     modal.classList.remove("show");
@@ -150,7 +149,6 @@ const getHistory = () => {
   request.execute(function (response) {
     const channelId =
       response.result.items[0].contentDetails.relatedPlaylists.uploads;
-    console.log(channelId);
     // Use the channel ID to get the watch history
     const historyRequest = gapi.client.youtube.playlistItems.list({
       part: ["snippet,contentDetails"],
@@ -366,13 +364,6 @@ const get_latest_video__on_subscription = (subscriptions) => {
          </div>
        </div>
           `;
-      // Process information about the latest video
-      // console.log("Subscription Channel:", subscription.snippet.title);
-      // console.log("Latest Video Title:", latestVideo.title);
-      // console.log(
-      //   "Latest Video Thumbnail:",
-      //   latestVideo.thumbnails.default.url
-      // );
     });
   });
 };
