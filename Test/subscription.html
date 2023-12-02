@@ -101,47 +101,40 @@
     </div>
   </nav>
 
-  <div class="container-fluid  d-md-flex px-0 bg-black">
+  <div class="container-fluid d-md-flex px-0 bg-black">
     <!-- side menu -->
-    <div class="side_bar bg-black  overflow-y-scroll" id="side_bar">
+    <div class="side_bar bg-black overflow-y-scroll" id="side_bar">
       <ul class="navbar-nav pt-3 text-light gap-3 text-start" id="accordionSidebar">
-        <li class="bg-light">
-          <a href="index.html" class="text-decoration-none text-black">
+        <li>
+          <a href="index.html" class="text-decoration-none text-light">
             <i class="fa-solid fa-house fs-5"> </i>
             <span class="ms-3">Home</span>
           </a>
         </li>
-        <li>
-          <a href="subscription.html" class="text-decoration-none text-light">
+        <li class="bg-light">
+          <a href="subscription.html" class="text-decoration-none text-black">
             <img src="./images/subscriprion.png" width="25px" alt="..." />
             <span class="ms-3">Subscription</span>
           </a>
-
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
         <li>
           <a href="you.html" class="text-decoration-none text-light">
-
             <span class="me-3">You</span>
             <i class="fa-solid fa-greater-than small"></i>
-
           </a>
-
         </li>
         <li>
           <a href="channel.html" class="text-decoration-none text-light">
-
             <i class="fa-regular fa-user fs-5"></i>
             <span class="ms-3">Your Channel</span>
           </a>
-
         </li>
         <li>
           <a href="history.html" class="text-decoration-none text-light">
             <i class="fa-solid fa-clock-rotate-left fs-5"> </i>
             <span class="ms-3">History</span>
-
           </a>
         </li>
         <li>
@@ -157,37 +150,35 @@
           <span class="ms-3">Watch Later</span>
         </li>
 
-        <ul class="navbar-nav d-none" id="dropdown_playlist">
-        </ul>
+        <ul class="navbar-nav d-none" id="dropdown_playlist"></ul>
 
         <li id="show_more" onclick="show_more()">
           <div id="more">
             <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
-            <span class="ms-3" >Show more</span>
+            <span class="ms-3">Show more</span>
           </div>
-         <div id="less"class='d-none'>
-          <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
-          <span class="ms-3" >Show less</span>
-         </div>
-          
+          <div id="less" class="d-none">
+            <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
+            <span class="ms-3">Show less</span>
+          </div>
         </li>
 
-
         <hr class="sidebar-divider my-0" />
+
         <li>
           <h6 class="">Subscriptions</h6>
 
           <ul class="navbar-nav subscription" id="dropdown_subscription"></ul>
-          <li onclick="show_more_subscription()">
-            <div id="show_more_subscription">
-              <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
-              <span class="ms-3">Show more</span>
-            </div>
-            <div id="show_less_subscription" class="d-none">
-              <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
-              <span class="ms-3">Show less</span>
-            </div>
-          </li>
+        <li onclick="show_more_subscription()">
+          <div id="show_more_subscription">
+            <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
+            <span class="ms-3">Show more</span>
+          </div>
+          <div id="show_less_subscription" class="d-none">
+            <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
+            <span class="ms-3">Show less</span>
+          </div>
+        </li>
         </li>
         <hr class="sidebar-divider my-0" />
         <li>
@@ -246,7 +237,7 @@
       <div id="suggestion_container" style="height:60px;"></div>
       <!-- video are -->
       <div class="container px-sm-0 px-md-auto">
-        <div class="row justify-content-sm-between justify-content-center mx-0 mx-md-4" id="home_video_container">
+        <div class="row justify-content-sm-between justify-content-center mx-0 mx-md-4" id="subscription_video_container">
           <div class="col-xs col-sm-6 col-md-6 col-lg-4">
             <div class="card bg-black">
               <img src="img/banner.webp" class="card-img-top rounded-2" alt="...">
@@ -332,7 +323,6 @@
 
       </div>
     </div>
-
   </div>
 
   <!-- Modal -->
@@ -340,21 +330,23 @@
     <div class="modal-dialog">
       <div class="modal-content align-items-center">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Please Login!</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Please Login!
+          </h1>
         </div>
         <div class="modal-body">
-          <button type="button" class="btn btn-primary" onclick="handleAuthClick()">sign in</button>
+          <button type="button" class="btn btn-primary" onclick="handleAuthClick()">
+            sign in
+          </button>
         </div>
-        <div class="modal-footer">
-        </div>
+        <div class="modal-footer"></div>
       </div>
     </div>
   </div>
 
   <script src="./script.js"></script>
   <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
-    onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
+    onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>

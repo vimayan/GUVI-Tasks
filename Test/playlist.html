@@ -101,12 +101,12 @@
     </div>
   </nav>
 
-  <div class="container-fluid  d-md-flex px-0 bg-black">
+  <div class="container-fluid px-0">
     <!-- side menu -->
-    <div class="side_bar bg-black  overflow-y-scroll" id="side_bar">
+    <div class="side_bar bg-dark bg-dark overflow-y-scroll" id="side_bar">
       <ul class="navbar-nav pt-3 text-light gap-3 text-start" id="accordionSidebar">
-        <li class="bg-light">
-          <a href="index.html" class="text-decoration-none text-black">
+        <li>
+          <a href="index.html" class="text-decoration-none text-light">
             <i class="fa-solid fa-house fs-5"> </i>
             <span class="ms-3">Home</span>
           </a>
@@ -156,23 +156,17 @@
           <i class="fa-solid fa-clock fs-5"> </i>
           <span class="ms-3">Watch Later</span>
         </li>
+        <li>
+          <i class="fa-solid fa-clock-rotate-left fs-5"> </i>
+          <span class="ms-3">Show more</span>
+        <li>
+          <a href="playlist.html" class="text-decoration-none">
+            <img src="./images/playlist.png" width="25px" alt="..." />
+            <span class="ms-3 text-light">Playlist</span>
+          </a>
 
-        <ul class="navbar-nav d-none" id="dropdown_playlist">
-        </ul>
-
-        <li id="show_more" onclick="show_more()">
-          <div id="more">
-            <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
-            <span class="ms-3" >Show more</span>
-          </div>
-         <div id="less"class='d-none'>
-          <i class="fa-solid fa-arrow-down bg-black rounded p-1"></i>
-          <span class="ms-3" >Show less</span>
-         </div>
-          
         </li>
-
-
+        </li>
         <hr class="sidebar-divider my-0" />
         <li>
           <h6 class="">Subscriptions</h6>
@@ -241,12 +235,14 @@
       </ul>
     </div>
     <!-- play area -->
-    <div class=" d-flex flex-column">
+    <div>
       <!-- suggetion tab -->
-      <div id="suggestion_container" style="height:60px;"></div>
+      <div id="suggestion_container">
+
+      </div>
       <!-- video are -->
       <div class="container px-sm-0 px-md-auto">
-        <div class="row justify-content-sm-between justify-content-center mx-0 mx-md-4" id="home_video_container">
+        <div class="row justify-content-sm-between justify-content-center mx-0 mx-md-4" id="playlist_video_container">
           <div class="col-xs col-sm-6 col-md-6 col-lg-4">
             <div class="card bg-black">
               <img src="img/banner.webp" class="card-img-top rounded-2" alt="...">
@@ -331,6 +327,7 @@
         </div>
 
       </div>
+
     </div>
 
   </div>
