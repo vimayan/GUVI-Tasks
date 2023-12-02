@@ -12,6 +12,13 @@ const profile = document.getElementById("profile");
 const input_search = document.getElementById("search_1");
 const input_search1 = document.getElementById("search_2");
 
+input_search.onkeydown = function (e) {
+  if (e.key === "Enter") e.preventDefault();
+};
+input_search1.onkeydown = function (e) {
+  if (e.key === "Enter") e.preventDefault();
+};
+
 const home_video_container = document.getElementById("home_video_container");
 const you_video_container = document.getElementById("you_video_container");
 const playlist_video_container = document.getElementById(
@@ -62,8 +69,11 @@ function handleClientLoad() {
 function handleAuthClick() {
   const authInstance = gapi.auth2.getAuthInstance();
   const isSignedIn = authInstance.isSignedIn.get();
-
-  if (!isSignedIn) {
+console.log(isSignedIn);
+  if (isSignedIn) {
+    // If already signed in, show the modal
+    modal.classList.remove("show");
+  } else {
     // If not signed in, initiate sign-in process
     authInstance.signIn().then(
       () => {
@@ -75,9 +85,6 @@ function handleAuthClick() {
         console.error("Sign-in error:", error);
       }
     );
-  } else {
-    // If already signed in, show the modal
-    modal.classList.add("show");
   }
 }
 
@@ -106,7 +113,7 @@ function initClient() {
       const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
 
       if (!isSignedIn) {
-        modal.classList.toggle("show");
+        modal.classList.add("show");
       } else {
         getPlaylist();
         getSubscription();
@@ -115,7 +122,7 @@ function initClient() {
     });
 }
 
-const search =(name,video_container)=>{
+const search = (name, video_container) => {
   console.log(name, video_container);
   const search_input = name === "search" ? input_search : input_search1;
   if (video_container === "home_video_container") {
@@ -132,7 +139,6 @@ const search =(name,video_container)=>{
     play_list_search(subscription_video_container);
   }
 };
-
 
 const getHistory = () => {
   console.log("this is api object", gapi.client.youtube);
@@ -371,8 +377,6 @@ const get_latest_video__on_subscription = (subscriptions) => {
   });
 };
 
-
-
 function requestUserPlaylistId() {
   // See https://developers.google.com/youtube/v3/docs/channels/list
   content.innerHTML = "";
@@ -488,7 +492,6 @@ function addVideoToPlaylist(currentid) {
   //   console.log(response);
   // });
 }
-
 
 function video_search(search, content) {
   let videoContent = {
