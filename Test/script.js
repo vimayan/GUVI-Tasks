@@ -111,14 +111,13 @@ function initClient() {
       // Listen for sign-in state changes.
       const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
 
-      if (!isSignedIn) {
-        modal.classList.add("show");
-      } else {
+      if (isSignedIn) {
+        modal.classList.remove("show");
         getPlaylist();
         getSubscription();
         getChannel();
       }
-    });
+    }).catch((err)=> console.log(err));
 }
 
 const search = (name, video_container) => {
