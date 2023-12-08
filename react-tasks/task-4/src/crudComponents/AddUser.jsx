@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function AddUser({UpdateUser,currentUser,index,Adduser}) {
-  // console.log(currentUser);
+function AddUser({ UpdateUser, currentUser, index, Adduser }) {
+  const navigate = useNavigate();
 
-  const [user,setUser]=useState(currentUser?currentUser:{ name:'',
-  email:'',
-  password:'',
-  address:''})
+  const [user, setUser] = useState(
+    currentUser
+      ? currentUser
+      : { name: "", email: "", password: "", address: "" }
+  );
 
-const handlechange = (e)=>{
-  setUser ({...user,[e.target.name]:e.target.value})
-}
-
+  const handlechange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -28,23 +28,46 @@ const handlechange = (e)=>{
       <div className="container">
         <div className="row my-3">
           <div className="col">
-            <form className="row g-3" >
+            <form className="row g-3">
               <div className="col-md-6 d-flex gap-2 align-items-center">
-                <label htmlFor="inputName" className="form-label badge bg-secondary py-2 ">
+                <label
+                  htmlFor="inputName"
+                  className="form-label badge bg-secondary py-2 "
+                >
                   Name
                 </label>
-                <input type="text" className="form-control" id="inputName"
-                name="name" value={user.name} onChange={handlechange} required />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputName"
+                  name="name"
+                  value={user.name}
+                  onChange={handlechange}
+                  required
+                />
               </div>
               <div className="col-md-6 d-flex gap-2">
-                <label htmlFor="inputEmail4" className="form-label badge bg-secondary py-2">
+                <label
+                  htmlFor="inputEmail4"
+                  className="form-label badge bg-secondary py-2"
+                >
                   Email
                 </label>
-                <input type="email" className="form-control" id="inputEmail4" 
-                  name="email" value={user.email} onChange={handlechange} required />
+                <input
+                  type="email"
+                  className="form-control"
+                  id="inputEmail4"
+                  name="email"
+                  value={user.email}
+                  onChange={handlechange}
+                  required
+                />
               </div>
               <div className="col-md-6 d-flex gap-2">
-                <label htmlFor="inputPassword4" className="form-label badge bg-secondary py-2">
+                <label
+                  htmlFor="inputPassword4"
+                  className="form-label badge bg-secondary py-2"
+                >
                   Password
                 </label>
                 <input
@@ -58,7 +81,10 @@ const handlechange = (e)=>{
                 />
               </div>
               <div className="col-12 d-flex gap-2">
-                <label htmlFor="inputAddress" className="form-label badge bg-secondary py-2">
+                <label
+                  htmlFor="inputAddress"
+                  className="form-label badge bg-secondary py-2"
+                >
                   Address
                 </label>
                 <input
@@ -73,13 +99,30 @@ const handlechange = (e)=>{
               </div>
 
               <div className="col-3 mx-auto btn-group">
-                <button onClick={(e)=>{ e.preventDefault();Adduser(user);}} className="btn btn-primary">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Adduser(user);
+                    navigate("/home");
+                  }}
+                  className="btn btn-primary"
+                >
                   ADD
                 </button>
-               { currentUser?
-                <button className="btn btn-warning" onClick={(e)=>{e.preventDefault();UpdateUser(user,index);}}>
-                  Update
-                </button>:<></>}
+                {currentUser ? (
+                  <button
+                    className="btn btn-warning"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      UpdateUser(user, index);
+                      navigate("/home");
+                    }}
+                  >
+                    Update
+                  </button>
+                ) : (
+                  <></>
+                )}
               </div>
             </form>
           </div>
