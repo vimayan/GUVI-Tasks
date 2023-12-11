@@ -167,7 +167,6 @@ const fillHome = () => {
     });
     request.execute(
       function (response) {
-        if(response){
         response.items.map((element) => {
           let video = element.id;
           if (home_video_container) {
@@ -196,7 +195,6 @@ const fillHome = () => {
             </div>`;
           }
         });
-      }
       },
       function (err) {
         console.error("Execute error", err);
@@ -330,7 +328,9 @@ const getSubscription = () => {
     mine: true,
   });
   request.execute(function (response) {
-    if(response){
+    if (response.code == 403) {
+      alert("gapi call limit exceded, pls use your client id");
+    } else {
       const channelId = response.result.items[0].id;
 
       // Use the channel ID to get the user's subscriptions
@@ -339,12 +339,12 @@ const getSubscription = () => {
         channelId: channelId,
         maxResults: 50, // Adjust the number of results as needed
       });
-  
+
       subscriptionsRequest.execute(function (subscriptionsResponse) {
         const subscriptions = subscriptionsResponse.result.items;
-  
+
         // Process the list of subscriptions (subscriptions array)
-  
+
         subscriptions.map((ele) => {
           dropdown_subscription.innerHTML += `<li class='nav-item px-0'> <div class='d-flex text-start overflow-hidden mx-0 px-0' style={height:'30px'}> 
           <img src='${ele.snippet.thumbnails.default.url}' class='rounded-circle' width='25px' height='25px'>
@@ -352,11 +352,10 @@ const getSubscription = () => {
           <div/>
           <li/>`;
         });
-  
+
         get_latest_video__on_subscription(subscriptions);
       });
     }
-   
   });
 };
 const getChannel = () => {
