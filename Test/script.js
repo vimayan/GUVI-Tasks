@@ -29,7 +29,6 @@ const subscription_video_container = document.getElementById(
 );
 
 menu_button.onclick = function () {
-  console.log("here");
   side_bar.classList.toggle("sidebar");
 };
 const show_more = () => {
@@ -81,7 +80,7 @@ function handleAuthClick() {
         // Handle successful sign-in
         modal.classList.remove("show");
         getChannel();
-        fillHome();
+        // fillHome();
         getPlaylist();
         getSubscription();
       },
@@ -120,7 +119,7 @@ function initClient() {
       if (isSignedIn) {
         modal.classList.remove("show");
         getChannel();
-        fillHome();
+        // fillHome();
         getPlaylist();
         getSubscription();
       } else {
@@ -139,24 +138,28 @@ const search = (name, video_container) => {
     home_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, home_video_container);
     play_list_search(search_input, home_video_container);
+    channel_search(search_input, home_video_container)
   } else if (video_container === "you_video_container") {
     you_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, you_video_container);
     play_list_search(search_input, you_video_container);
+    channel_search(search_input, you_video_container)
   } else if (video_container === "playlist_video_container") {
     playlist_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, playlist_video_container);
     play_list_search(search_input, playlist_video_container);
+    channel_search(search_input, playlist_video_container)
   } else if (video_container === "subscription_video_container") {
     subscription_video_container.innerHTML = `<div> </div>`;
-    video_search(subscription_video_container);
-    play_list_search(subscription_video_container);
+    video_search(search_input,subscription_video_container);
+    play_list_search(search_input,subscription_video_container);
+    channel_search(search_input, subscription_video_container)
   }
 };
 
 const fillHome = () => {
   home_video_container ? (home_video_container.innerHTML = `<div> </div>`) : "";
-  const request = gapi.client.youtube.videos.list({
+ if(home_video_container) {const request = gapi.client.youtube.videos.list({
     part: ["snippet,contentDetails"],
     chart: "mostPopular",
     maxResults: 50,
@@ -196,7 +199,7 @@ const fillHome = () => {
     function (err) {
       console.error("Execute error", err);
     }
-  );
+  );}
 };
 
 const getHistory = () => {
@@ -351,12 +354,12 @@ const getSubscription = () => {
   });
 };
 const getChannel = () => {
+  if(channel_container){
   const request = gapi.client.youtube.channels.list({
     part: ["contentDetails", "snippet"],
     mine: true,
   });
   request.execute(function (response) {
-    console.log(response);
     const channel = response?.items[0].snippet;
     profile.src = `${channel.thumbnails.high.url}`;
 
@@ -379,6 +382,7 @@ const getChannel = () => {
 </div>
 `;
   });
+}
 };
 
 const get_latest_video__on_subscription = (subscriptions) => {
@@ -598,11 +602,9 @@ function channel_search(search, content) {
   if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
     gapi.client.youtube.channels.list(channelSearch).then(function (response) {
       var channel = response.result.items;
-      console.log(response);
-      // console.log(channel[0]);
 
       if (channel) {
-        content.innerHTML = ` <div class = "col-8 col-sm-6 col-md-3">
+        content.innerHTML = ` <div class = "col-xs col-sm-6 col-md-6 col-lg-4">
                                 <img width="100%" 
                                 height="auto" 
                                 src=${channel[0].snippet.thumbnails.default.url}>
