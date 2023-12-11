@@ -44,7 +44,7 @@ const show_more_subscription = () => {
 };
 // Client ID and API key from the Developer Console
 const CLIENT_ID =
-  "824494599805-ckmknvilrpvc6ekqntpi8838hami869l.apps.googleusercontent.com";
+"493740273166-2dgnjdfg5vfjhd4r2d574sd4lg4j37sj.apps.googleusercontent.com";
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = [
   "https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest",
