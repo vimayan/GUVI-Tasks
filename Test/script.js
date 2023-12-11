@@ -29,6 +29,7 @@ const subscription_video_container = document.getElementById(
 );
 
 menu_button.onclick = function () {
+  console.log("here");
   side_bar.classList.toggle("sidebar");
 };
 const show_more = () => {
@@ -44,7 +45,8 @@ const show_more_subscription = () => {
 };
 // Client ID and API key from the Developer Console
 const CLIENT_ID =
-  "666341212747-pfph8jk3m4om69dckkb7lt89mjvj9te6.apps.googleusercontent.com";
+  "967259699602-a038dvo04vl3ol5b9aofdvsgaoc4mum6.apps.googleusercontent.com";
+
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = [
   "https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest",
@@ -78,6 +80,10 @@ function handleAuthClick() {
       () => {
         // Handle successful sign-in
         modal.classList.remove("show");
+        getChannel();
+        fillHome();
+        getPlaylist();
+        getSubscription();
       },
       (error) => {
         // Handle sign-in error
@@ -113,78 +119,84 @@ function initClient() {
 
       if (isSignedIn) {
         modal.classList.remove("show");
+        getChannel();
         fillHome();
         getPlaylist();
         getSubscription();
-        getChannel();
+      } else {
+        modal.classList.add("show");
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      modal.classList.add("show");
+      console.log(err);
+    });
 }
 
 const search = (name, video_container) => {
-  console.log(name, video_container);
   const search_input = name === "search" ? input_search : input_search1;
   if (video_container === "home_video_container") {
+    home_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, home_video_container);
     play_list_search(search_input, home_video_container);
   } else if (video_container === "you_video_container") {
+    you_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, you_video_container);
     play_list_search(search_input, you_video_container);
   } else if (video_container === "playlist_video_container") {
+    playlist_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, playlist_video_container);
     play_list_search(search_input, playlist_video_container);
   } else if (video_container === "subscription_video_container") {
+    subscription_video_container.innerHTML = `<div> </div>`;
     video_search(subscription_video_container);
     play_list_search(subscription_video_container);
   }
 };
 
 const fillHome = () => {
-  gapi.client.youtube.videos
-    .list({
-      part: ["snippet,contentDetails"],
-      chart: "mostPopular",
-      maxResults: 50,
-      regionCode: "US",
-    })
-    .then(
-      function (response) {
-        response.map((element) => {
-          const video = response.id;
-          if (home_video_container) {
-            home_video_container.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
-    <div class="col-xs col-sm-6 col-md-6 col-lg-4">
-    <div class="card bg-black">
-    <div class="card-img-top col rounded-2">
-    <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-    </div>
-      <div class="card-body  text-light">
-        <div class="d-flex align-items-top justify-content-around">
-          <div class="d-flex flex-column align-items-start">
-            <b class="card-text overflow-hidden">
-              ${element.snippet.title}</b>
-            <div class="d-flex flex-column">
-              <span>${element.snippet.channelTitle}</span>
-              <span>views</span>
+  home_video_container ? (home_video_container.innerHTML = `<div> </div>`) : "";
+  const request = gapi.client.youtube.videos.list({
+    part: ["snippet,contentDetails"],
+    chart: "mostPopular",
+    maxResults: 50,
+    regionCode: "US",
+  });
+  request.execute(
+    function (response) {
+      response.items.map((element) => {
+        let video = element.id;
+        if (home_video_container) {
+          home_video_container.innerHTML += `<div class="col-xs col-sm-6 col-md-6 col-lg-4">
+            <div class="card bg-black">
+            <div class="card-img-top col rounded-2">
+            <iframe width='100%' src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
             </div>
-          </div>
-          <div>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </div>
-        </div>
-        <div>
-        </div>
-      </div>
-    </div>
-  </div>`;
-          }
-        });
-      },
-      function (err) {
-        console.error("Execute error", err);
-      }
-    );
+              <div class="card-body  text-light">
+                <div class="d-flex align-items-top justify-content-around">
+                  <div class="d-flex flex-column align-items-start">
+                    <b class="card-text overflow-hidden">
+                      ${element.snippet.title}</b>
+                    <div class="d-flex flex-column">
+                      <span>${element.snippet.channelTitle}</span>
+                      <span>views</span>
+                    </div>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+                </div>
+                <div>
+                </div>
+              </div>
+            </div>`;
+        }
+      });
+    },
+    function (err) {
+      console.error("Execute error", err);
+    }
+  );
 };
 
 const getHistory = () => {
@@ -344,7 +356,8 @@ const getChannel = () => {
     mine: true,
   });
   request.execute(function (response) {
-    const channel = response.items[0].snippet;
+    console.log(response);
+    const channel = response?.items[0].snippet;
     profile.src = `${channel.thumbnails.high.url}`;
 
     if (channel_container)
@@ -369,6 +382,10 @@ const getChannel = () => {
 };
 
 const get_latest_video__on_subscription = (subscriptions) => {
+  subscription_video_container
+    ? (subscription_video_container.innerHTML = `<div> </div>`)
+    : "";
+
   subscriptions.forEach(function (subscription) {
     const subscriptionChannelId = subscription.snippet.resourceId.channelId;
     // Use the subscription channel ID to get the latest video
@@ -384,128 +401,37 @@ const get_latest_video__on_subscription = (subscriptions) => {
       const latestVideo = latestVideoResponse.result.items[0].snippet;
       const video = latestVideoResponse.result.items[0].id.videoId;
       if (subscription_video_container)
-        subscription_video_container.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
-         <div class="col-xs col-sm-6 col-md-6 col-lg-4">
-         <div class="card bg-black">
-         <div class="card-img-top col rounded-2">
-         <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-        </div>
-           <div class="card-body  text-light">
-             <div class="d-flex align-items-top justify-content-around">
-               <img src="${subscription.snippet.thumbnails.default.url}" class="mb-auto rounded-circle" width="40px" alt="...">
-               <div class="d-flex flex-column align-items-start">
-                 <b class="card-text overflow-hidden">
-                   ${latestVideo.title}</b>
-
-                 <div class="d-flex flex-column">
-                   <span>${subscription.snippet.title}</span>
-                   <span>views</span>
-                 </div>
-
-               </div>
-               <div>
-                 <i class="fa-solid fa-ellipsis-vertical"></i>
-               </div>
-             </div>
-             <div>
-
-             </div>
-           </div>
-         </div>
+        subscription_video_container.innerHTML += `         <div class="col-xs col-sm-6 col-md-6 col-lg-4">
+        <div class="card bg-black">
+        <div class="card-img-top col rounded-2">
+        <iframe  width="100%" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
        </div>
+          <div class="card-body  text-light">
+            <div class="d-flex align-items-top justify-content-around">
+              <img src="${subscription.snippet.thumbnails.default.url}" class="mb-auto rounded-circle" width="40px" alt="...">
+              <div class="d-flex flex-column align-items-start">
+                <b class="card-text overflow-hidden">
+                  ${latestVideo.title}</b>
+
+                <div class="d-flex flex-column">
+                  <span>${subscription.snippet.title}</span>
+                  <span>views</span>
+                </div>
+
+              </div>
+              <div>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </div>
+            </div>
+            <div>
+
+            </div>
+          </div>
+        </div>
           `;
     });
   });
 };
-
-function requestUserPlaylistId() {
-  // See https://developers.google.com/youtube/v3/docs/channels/list
-  content.innerHTML = "";
-  if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-    var myplaylist = {
-      part: ["snippet,contentDetails"],
-      maxResults: 20,
-      mine: true,
-    };
-    gapi.client.youtube.playlists.list(myplaylist).then(function (response) {
-      var playlistId = response.result.items;
-
-      //console.log(response);
-
-      playlistId.forEach((element, index) => {
-        const { id } = element;
-
-        console.log(id);
-
-        content.innerHTML += `   <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button collapsed "
-                                     type="button" data-bs-toggle="collapse" 
-                                     data-bs-target="#flush-collapse${index}" 
-                                     aria-expanded="false" 
-                                     aria-controls="flush-collapse${index}">
-                                    ${element.snippet.localized.title} - ${element.contentDetails.itemCount} 
-                                    
-                                    
-                                    </button>
-                                    </h2>
-                                    <div id="flush-collapse${index}" 
-                                    class="accordion-collapse collapse" 
-                                    aria-labelledby="flush-heading${index}" 
-                                    data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body container" > <div class="row mx-0  gap-1 justify-content-center " id = "myVideos${index}">  </div><span class="btn btn-sm btn-success float-end fs-6" onclick ="addVideoToPlaylist('${id}')"> upload video</span> </div>
-                                    </div>
-                                    </div>
-                                   </div> `;
-      });
-
-      playlistId.forEach((element, index) => {
-        execute();
-
-        function execute() {
-          let playlistContent = {
-            part: ["snippet"],
-
-            playlistId: `${element.id}`,
-            maxResults: 1,
-          };
-
-          var myVideos = document.getElementById(`myVideos${index}`);
-
-          return gapi.client.youtube.playlistItems.list(playlistContent).then(
-            function (response) {
-              // console.log(myVideos);
-
-              // console.log("Response", response);
-
-              let playlistid = response.result.items;
-              //console.log(playlistid);
-
-              playlistid.forEach((element) => {
-                let videos = element.snippet.resourceId.videoId;
-                // console.log(videos);
-                myVideos.innerHTML += `   
-                                      <div class = "col-sm-4 col-md-3 col-lg-2">
-
-                                      <iframe width="100%" heigth ="auto" 
-                                      src="https://www.youtube.com/embed/${videos}" 
-                                      frameborder="0" allow="autoplay"
-                                       allowfullscreen></iframe>
-                                      </div>`;
-              });
-            },
-            function (err) {
-              console.error("Execute error", err);
-            }
-          );
-        }
-      });
-
-      // console.log(response);
-    });
-  } else alert("pls sign-in ");
-}
 
 function addVideoToPlaylist(currentid) {
   console.log(currentid);
@@ -552,38 +478,34 @@ function video_search(search, content) {
       function (response) {
         // Handle the results here (response.result has the parsed body).
 
-        console.log(response);
-
         let video = response.result.items;
 
         video.forEach((element) => {
           let videos = element.id.videoId;
-          content.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
-                                <div class="col-xs col-sm-6 col-md-6 col-lg-4">
-                                <div class="card bg-black">
-                                <div class="card-img-top col rounded-2">
-                                <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                                </div>
-                                  <div class="card-body  text-light">
-                                    <div class="d-flex align-items-top justify-content-around">
-                                      <div class="d-flex flex-column align-items-start">
-                                        <b class="card-text overflow-hidden">
-                                          ${element.snippet.title}</b>
-                                        <div class="d-flex flex-column">
-                                          <span>${element.snippet.channelTitle}</span>
-                                          <span>views</span>
-                                        </div>
-                                      </div>
-                                      <div>
-                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                      </div>
-                                    </div>
-                                    <div>
-                      
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>`;
+          content.innerHTML += `<div class="col-xs col-sm-6 col-md-6 col-lg-4">
+          <div class="card bg-black">
+          <div class="card-img-top col rounded-2">
+          <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${videos}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+          </div>
+            <div class="card-body  text-light">
+              <div class="d-flex align-items-top justify-content-around">
+                <div class="d-flex flex-column align-items-start">
+                  <b class="card-text overflow-hidden">
+                    ${element.snippet.title}</b>
+                  <div class="d-flex flex-column">
+                    <span>${element.snippet.channelTitle}</span>
+                    <span>views</span>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+              </div>
+              <div>
+
+              </div>
+            </div>
+          </div>`;
         });
       },
       function (err) {
@@ -632,31 +554,29 @@ function play_list_search(search, content) {
                 playlistid.forEach((element) => {
                   let video = element.snippet.resourceId.videoId;
 
-                  content.innerHTML += `<div class="col-xs col-sm-6 col-lg-4">
-                                        <div class="col-xs col-sm-6 col-md-6 col-lg-4">
-                                        <div class="card bg-black">
-                                        <div class="card-img-top col rounded-2">
-                                        <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                                        </div>
-                                          <div class="card-body  text-light">
-                                            <div class="d-flex align-items-top justify-content-around">
-                                              <div class="d-flex flex-column align-items-start">
-                                                <b class="card-text overflow-hidden">
-                                                  ${element.snippet.title}</b>
-                                                <div class="d-flex flex-column">
-                                                  <span>${element.snippet.channelTitle}</span>
-                                                  <span>views</span>
-                                                </div>
-                                              </div>
-                                              <div>
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                              </div>
-                                            </div>
-                                            <div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>`;
+                  content.innerHTML += ` <div class="col-xs col-sm-6 col-md-6 col-lg-4">
+                  <div class="card bg-black">
+                  <div class="card-img-top col rounded-2">
+                  <iframe  width="100%" height ="auto" src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+                  </div>
+                    <div class="card-body  text-light">
+                      <div class="d-flex align-items-top justify-content-around">
+                        <div class="d-flex flex-column align-items-start">
+                          <b class="card-text overflow-hidden">
+                            ${element.snippet.title}</b>
+                          <div class="d-flex flex-column">
+                            <span>${element.snippet.channelTitle}</span>
+                            <span>views</span>
+                          </div>
+                        </div>
+                        <div>
+                          <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                      </div>
+                      <div>
+                      </div>
+                    </div>
+                  </div>`;
                 });
               },
               function (err) {
