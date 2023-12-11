@@ -44,8 +44,7 @@ const show_more_subscription = () => {
 };
 // Client ID and API key from the Developer Console
 const CLIENT_ID =
-  "967259699602-a038dvo04vl3ol5b9aofdvsgaoc4mum6.apps.googleusercontent.com";
-
+  "824494599805-ckmknvilrpvc6ekqntpi8838hami869l.apps.googleusercontent.com";
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = [
   "https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest",
@@ -80,7 +79,7 @@ function handleAuthClick() {
         // Handle successful sign-in
         modal.classList.remove("show");
         getChannel();
-        // fillHome();
+        fillHome();
         getPlaylist();
         getSubscription();
       },
@@ -119,7 +118,7 @@ function initClient() {
       if (isSignedIn) {
         modal.classList.remove("show");
         getChannel();
-        // fillHome();
+        fillHome();
         getPlaylist();
         getSubscription();
       } else {
@@ -138,39 +137,41 @@ const search = (name, video_container) => {
     home_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, home_video_container);
     play_list_search(search_input, home_video_container);
-    channel_search(search_input, home_video_container)
+    channel_search(search_input, home_video_container);
   } else if (video_container === "you_video_container") {
     you_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, you_video_container);
     play_list_search(search_input, you_video_container);
-    channel_search(search_input, you_video_container)
+    channel_search(search_input, you_video_container);
   } else if (video_container === "playlist_video_container") {
     playlist_video_container.innerHTML = `<div> </div>`;
     video_search(search_input, playlist_video_container);
     play_list_search(search_input, playlist_video_container);
-    channel_search(search_input, playlist_video_container)
+    channel_search(search_input, playlist_video_container);
   } else if (video_container === "subscription_video_container") {
     subscription_video_container.innerHTML = `<div> </div>`;
-    video_search(search_input,subscription_video_container);
-    play_list_search(search_input,subscription_video_container);
-    channel_search(search_input, subscription_video_container)
+    video_search(search_input, subscription_video_container);
+    play_list_search(search_input, subscription_video_container);
+    channel_search(search_input, subscription_video_container);
   }
 };
 
 const fillHome = () => {
   home_video_container ? (home_video_container.innerHTML = `<div> </div>`) : "";
- if(home_video_container) {const request = gapi.client.youtube.videos.list({
-    part: ["snippet,contentDetails"],
-    chart: "mostPopular",
-    maxResults: 50,
-    regionCode: "US",
-  });
-  request.execute(
-    function (response) {
-      response.items.map((element) => {
-        let video = element.id;
-        if (home_video_container) {
-          home_video_container.innerHTML += `<div class="col-xs col-sm-6 col-md-6 col-lg-4">
+  if (home_video_container) {
+    const request = gapi.client.youtube.videos.list({
+      part: ["snippet,contentDetails"],
+      chart: "mostPopular",
+      maxResults: 50,
+      regionCode: "US",
+    });
+    request.execute(
+      function (response) {
+        if(response){
+        response.items.map((element) => {
+          let video = element.id;
+          if (home_video_container) {
+            home_video_container.innerHTML += `<div class="col-xs col-sm-6 col-md-6 col-lg-4">
             <div class="card bg-black">
             <div class="card-img-top col rounded-2">
             <iframe width='100%' src="https://www.youtube.com/embed/${video}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
@@ -193,13 +194,15 @@ const fillHome = () => {
                 </div>
               </div>
             </div>`;
-        }
-      });
-    },
-    function (err) {
-      console.error("Execute error", err);
-    }
-  );}
+          }
+        });
+      }
+      },
+      function (err) {
+        console.error("Execute error", err);
+      }
+    );
+  }
 };
 
 const getHistory = () => {
@@ -301,7 +304,7 @@ const getPlaylist = () => {
   };
   const request = gapi.client.youtube.channels.list(params);
   request.execute(function (response) {
-    const channelId = response.result.items[0].id;
+    const channelId = response?.result.items[0].id;
     const playlistsRequest = gapi.client.youtube.playlists.list({
       part: "snippet",
       channelId: channelId,
@@ -327,44 +330,47 @@ const getSubscription = () => {
     mine: true,
   });
   request.execute(function (response) {
-    const channelId = response.result.items[0].id;
+    if(response){
+      const channelId = response.result.items[0].id;
 
-    // Use the channel ID to get the user's subscriptions
-    const subscriptionsRequest = gapi.client.youtube.subscriptions.list({
-      part: "snippet",
-      channelId: channelId,
-      maxResults: 50, // Adjust the number of results as needed
-    });
-
-    subscriptionsRequest.execute(function (subscriptionsResponse) {
-      const subscriptions = subscriptionsResponse.result.items;
-
-      // Process the list of subscriptions (subscriptions array)
-
-      subscriptions.map((ele) => {
-        dropdown_subscription.innerHTML += `<li class='nav-item px-0'> <div class='d-flex text-start overflow-hidden mx-0 px-0' style={height:'30px'}> 
-        <img src='${ele.snippet.thumbnails.default.url}' class='rounded-circle' width='25px' height='25px'>
-        <span class='overflow-hidden text-nowrap ms-2'> ${ele.snippet.title}</span>
-        <div/>
-        <li/>`;
+      // Use the channel ID to get the user's subscriptions
+      const subscriptionsRequest = gapi.client.youtube.subscriptions.list({
+        part: "snippet",
+        channelId: channelId,
+        maxResults: 50, // Adjust the number of results as needed
       });
-
-      get_latest_video__on_subscription(subscriptions);
-    });
+  
+      subscriptionsRequest.execute(function (subscriptionsResponse) {
+        const subscriptions = subscriptionsResponse.result.items;
+  
+        // Process the list of subscriptions (subscriptions array)
+  
+        subscriptions.map((ele) => {
+          dropdown_subscription.innerHTML += `<li class='nav-item px-0'> <div class='d-flex text-start overflow-hidden mx-0 px-0' style={height:'30px'}> 
+          <img src='${ele.snippet.thumbnails.default.url}' class='rounded-circle' width='25px' height='25px'>
+          <span class='overflow-hidden text-nowrap ms-2'> ${ele.snippet.title}</span>
+          <div/>
+          <li/>`;
+        });
+  
+        get_latest_video__on_subscription(subscriptions);
+      });
+    }
+   
   });
 };
 const getChannel = () => {
-  if(channel_container){
-  const request = gapi.client.youtube.channels.list({
-    part: ["contentDetails", "snippet"],
-    mine: true,
-  });
-  request.execute(function (response) {
-    const channel = response?.items[0].snippet;
-    profile.src = `${channel.thumbnails.high.url}`;
+  if (channel_container) {
+    const request = gapi.client.youtube.channels.list({
+      part: ["contentDetails", "snippet"],
+      mine: true,
+    });
+    request.execute(function (response) {
+      const channel = response?.items[0].snippet;
+      profile.src = `${channel.thumbnails.high.url}`;
 
-    if (channel_container)
-      channel_container.innerHTML = `<div class="d-flex gap-3 text-light ">
+      if (channel_container)
+        channel_container.innerHTML = `<div class="d-flex gap-3 text-light ">
 <div class=''> 
 <img src="${channel.thumbnails.high.url}" class='rounded-circle' width='150px' height:'150px' alt="...">
 </div>
@@ -381,8 +387,8 @@ const getChannel = () => {
 
 </div>
 `;
-  });
-}
+    });
+  }
 };
 
 const get_latest_video__on_subscription = (subscriptions) => {
